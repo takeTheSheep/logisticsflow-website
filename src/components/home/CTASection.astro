@@ -1,0 +1,24 @@
+---
+import Button from '@/components/common/Button.astro';
+import Container from '@/components/common/Container.astro';
+---
+
+<section class="section-spacing pt-8">
+  <Container>
+    <div class="section-shell relative overflow-hidden p-8 md:p-12">
+      <div class="absolute -left-12 top-1/2 h-48 w-48 -translate-y-1/2 rounded-full bg-cyan-300/10 blur-3xl"></div>
+      <div class="relative max-w-4xl">
+        <h2 class="text-3xl font-bold text-white md:text-4xl">
+          Improve logistics clarity and execution before delays become business risk.
+        </h2>
+        <p class="mt-4 max-w-2xl text-base text-slate-300">
+          Align your freight operations with stronger visibility, faster exception handling, and consistent client communication.
+        </p>
+        <div class="mt-8 flex flex-wrap gap-3">
+          <Button href="/contact" size="lg">Request Quote</Button>
+          <Button href="/contact" size="lg" variant="secondary">Contact Team</Button>
+        </div>
+      </div>
+    </div>
+  </Container>
+</section>

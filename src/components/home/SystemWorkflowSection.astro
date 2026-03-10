@@ -1,0 +1,38 @@
+﻿---
+import Container from '@/components/common/Container.astro';
+import SectionHeading from '@/components/common/SectionHeading.astro';
+import SystemIcon from '@/components/common/SystemIcon.astro';
+import { workflowSteps } from '@/data/platform';
+---
+
+<section class="section-spacing pt-4" id="system-workflow">
+  <SectionHeading
+    eyebrow="System Workflow"
+    title="Logistics execution workflow"
+    description="A visual process map from client intake through delivery updates."
+  />
+
+  <Container class="mt-10">
+    <div class="overflow-x-auto pb-2" data-reveal>
+      <div class="grid min-w-[980px] gap-4 xl:grid-cols-6">
+        {
+          workflowSteps.map((step, index) => (
+            <article class="relative rounded-2xl border border-white/15 bg-white/15 p-4">
+              <div class="mb-3 flex items-center justify-between">
+                <SystemIcon name={step.icon} />
+                <span class="rounded-full border border-white/20 bg-white/15 px-2 py-1 text-[11px] font-semibold text-slate-100">0{index + 1}</span>
+              </div>
+              <h3 class="text-sm font-semibold text-white">{step.title}</h3>
+              <p class="mt-2 text-xs text-slate-300">{step.description}</p>
+              {index < workflowSteps.length - 1 && (
+                <span class="pointer-events-none absolute -right-3 top-1/2 hidden h-6 w-6 -translate-y-1/2 items-center justify-center rounded-full border border-white/25 bg-white/20 text-xs text-cyan-50 xl:inline-flex">
+                  >
+                </span>
+              )}
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </Container>
+</section>

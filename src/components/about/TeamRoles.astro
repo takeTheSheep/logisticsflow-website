@@ -1,0 +1,24 @@
+﻿---
+interface Role {
+  title: string;
+  detail: string;
+}
+
+interface Props {
+  roles: ReadonlyArray<Role>;
+}
+
+const { roles } = Astro.props as Props;
+---
+
+<div class="grid gap-4 sm:grid-cols-2">
+  {
+    roles.map((role) => (
+      <article class="rounded-2xl border border-white/10 bg-white/10 p-5">
+        <h2 class="text-lg font-semibold text-white">{role.title}</h2>
+        <p class="mt-2 text-sm text-slate-300">{role.detail}</p>
+      </article>
+    ))
+  }
+</div>
+

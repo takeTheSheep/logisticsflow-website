@@ -1,0 +1,78 @@
+﻿---
+import Container from '@/components/common/Container.astro';
+import SectionHeading from '@/components/common/SectionHeading.astro';
+import SystemIcon from '@/components/common/SystemIcon.astro';
+import { operationsRows, systemHealthItems } from '@/data/platform';
+
+const levelClassMap = {
+  good: 'bg-emerald-300 shadow-[0_0_0_4px_rgba(110,231,183,0.2)]',
+  warn: 'bg-amber-300 shadow-[0_0_0_4px_rgba(252,211,77,0.2)]',
+  critical: 'bg-rose-300 shadow-[0_0_0_4px_rgba(251,113,133,0.25)]',
+} as const;
+
+const statusClassMap = {
+  'In Transit': 'border-cyan-200/45 bg-cyan-200/20 text-cyan-50',
+  Delivered: 'border-emerald-300/45 bg-emerald-300/20 text-emerald-50',
+  Delayed: 'border-rose-300/45 bg-rose-300/20 text-rose-50',
+  'Arrived at Hub': 'border-indigo-200/45 bg-indigo-200/20 text-indigo-50',
+  'Out for Delivery': 'border-teal-200/45 bg-teal-200/20 text-teal-50',
+} as const;
+---
+
+<section class="section-spacing pt-4" id="live-operations-panel">
+  <SectionHeading
+    eyebrow="Live Operations Panel"
+    title="System monitoring and shipment feed"
+    description="A monitoring block that simulates operational telemetry, shipment events, and system service health."
+  />
+
+  <Container class="mt-10">
+    <div class="grid gap-4 xl:grid-cols-[1.05fr_0.95fr]">
+      <article class="panel border-white/15" data-reveal>
+        <div class="mb-4 flex items-center justify-between">
+          <h3 class="text-lg font-semibold text-white">Recent shipments</h3>
+          <span class="rounded-full border border-white/25 bg-white/20 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.12em] text-cyan-50">
+            sample operations
+          </span>
+        </div>
+
+        <ul class="space-y-3">
+          {
+            operationsRows.map((row) => (
+              <li class="rounded-xl border border-white/15 bg-white/15 px-3 py-3 transition-colors hover:bg-white/20">
+                <div class="flex flex-wrap items-center justify-between gap-2">
+                  <p class="font-semibold text-white">{row.shipmentId}</p>
+                  <span class={`inline-flex rounded-full border px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.1em] ${statusClassMap[row.status]}`} data-status-pill>
+                    {row.status}
+                  </span>
+                </div>
+                <p class="mt-1 text-sm text-slate-200">{row.route}</p>
+              </li>
+            ))
+          }
+        </ul>
+      </article>
+
+      <article class="panel border-white/15" data-reveal>
+        <div class="mb-4 flex items-center justify-between">
+          <h3 class="text-lg font-semibold text-white">System status indicators</h3>
+          <SystemIcon name="monitoring" size="sm" />
+        </div>
+
+        <ul class="space-y-3">
+          {
+            systemHealthItems.map((item) => (
+              <li class="flex items-center justify-between rounded-xl border border-white/15 bg-white/15 px-3 py-3">
+                <div class="flex items-center gap-3">
+                  <span class={`inline-flex h-2.5 w-2.5 rounded-full ${levelClassMap[item.level]}`}></span>
+                  <p class="text-sm font-medium text-slate-100">{item.name}</p>
+                </div>
+                <span class="text-xs font-semibold uppercase tracking-[0.1em] text-slate-200">{item.status}</span>
+              </li>
+            ))
+          }
+        </ul>
+      </article>
+    </div>
+  </Container>
+</section>

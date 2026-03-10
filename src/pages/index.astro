@@ -1,0 +1,52 @@
+---
+import MainLayout from '@/components/layout/MainLayout.astro';
+import HeroSection from '@/components/home/HeroSection.astro';
+import TrustMetrics from '@/components/home/TrustMetrics.astro';
+import InteractiveShipmentMapSection from '@/components/home/InteractiveShipmentMapSection.astro';
+import LiveOperationsPanelSection from '@/components/home/LiveOperationsPanelSection.astro';
+import TechStackSection from '@/components/home/TechStackSection.astro';
+import FeatureModulesSection from '@/components/home/FeatureModulesSection.astro';
+import PlatformCapabilitiesSection from '@/components/home/PlatformCapabilitiesSection.astro';
+import OperationsDashboardSection from '@/components/home/OperationsDashboardSection.astro';
+import DataVisualizationSection from '@/components/home/DataVisualizationSection.astro';
+import ServicesOverview from '@/components/home/ServicesOverview.astro';
+import SystemWorkflowSection from '@/components/home/SystemWorkflowSection.astro';
+import SystemArchitectureSection from '@/components/home/SystemArchitectureSection.astro';
+import DeveloperFeaturesSection from '@/components/home/DeveloperFeaturesSection.astro';
+import WhyChooseSection from '@/components/home/WhyChooseSection.astro';
+import TrackingPreview from '@/components/home/TrackingPreview.astro';
+import ShipmentStatusSimulatorSection from '@/components/home/ShipmentStatusSimulatorSection.astro';
+import ProcessSection from '@/components/home/ProcessSection.astro';
+import IndustriesSection from '@/components/home/IndustriesSection.astro';
+import TestimonialsSection from '@/components/home/TestimonialsSection.astro';
+import CTASection from '@/components/home/CTASection.astro';
+
+const pathname = Astro.url.pathname;
+---
+
+<MainLayout
+  title="Premium Logistics Execution"
+  description="LogisticsFlow is a premium logistics and freight coordination website demo focused on visibility, execution quality, and conversion-ready UX."
+  pathname={pathname}
+>
+  <HeroSection />
+  <TrustMetrics />
+  <InteractiveShipmentMapSection />
+  <LiveOperationsPanelSection />
+  <TechStackSection />
+  <FeatureModulesSection />
+  <PlatformCapabilitiesSection />
+  <OperationsDashboardSection />
+  <DataVisualizationSection />
+  <SystemWorkflowSection />
+  <ServicesOverview />
+  <SystemArchitectureSection />
+  <DeveloperFeaturesSection />
+  <WhyChooseSection />
+  <TrackingPreview />
+  <ShipmentStatusSimulatorSection />
+  <ProcessSection />
+  <IndustriesSection />
+  <TestimonialsSection />
+  <CTASection />
+</MainLayout>

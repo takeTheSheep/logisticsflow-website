@@ -1,0 +1,57 @@
+﻿---
+import Container from '@/components/common/Container.astro';
+import { legalLinks, navigationLinks } from '@/data/navigation';
+import { projectInfoItems } from '@/data/platform';
+---
+
+<footer class="mt-24 border-t border-white/20 bg-white/10 backdrop-blur-md py-14">
+  <Container>
+    <section class="mb-10 rounded-2xl border border-white/20 bg-white/15 p-5 md:p-6" aria-label="Project information">
+      <h2 class="text-sm font-semibold uppercase tracking-[0.12em] text-cyan-50">Project Information</h2>
+      <div class="mt-4 grid gap-3 md:grid-cols-2 xl:grid-cols-4">
+        {
+          projectInfoItems.map((item) => (
+            <article class="rounded-xl border border-white/15 bg-white/10 p-3">
+              <p class="text-xs uppercase tracking-[0.1em] text-slate-300">{item.label}</p>
+              <p class="mt-2 text-sm font-semibold text-white">{item.value}</p>
+            </article>
+          ))
+        }
+      </div>
+    </section>
+
+    <div class="grid gap-10 md:grid-cols-[1.3fr_1fr_1fr]">
+      <div>
+        <a href="/" class="inline-flex items-center gap-3 font-display text-lg font-semibold text-white">
+          <span class="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-cyan-200/55 bg-white/20 text-xs font-bold text-cyan-50">
+            LF
+          </span>
+          LogisticsFlow
+        </a>
+        <p class="mt-4 max-w-md text-sm text-slate-300">
+          Premium freight and supply chain coordination designed for teams that need visibility, control, and dependable execution.
+        </p>
+        <p class="mt-4 text-sm text-slate-400">contact@logisticsflow.example</p>
+      </div>
+
+      <div>
+        <h2 class="text-sm font-semibold uppercase tracking-[0.1em] text-cyan-50/90">Navigation</h2>
+        <ul class="mt-4 space-y-2 text-sm text-slate-300">
+          {navigationLinks.map((item) => <li><a class="transition-colors hover:text-cyan-100" href={item.href}>{item.label}</a></li>)}
+        </ul>
+      </div>
+
+      <div>
+        <h2 class="text-sm font-semibold uppercase tracking-[0.1em] text-cyan-50/90">Legal</h2>
+        <ul class="mt-4 space-y-2 text-sm text-slate-300">
+          {legalLinks.map((item) => <li><a class="transition-colors hover:text-cyan-100" href={item.href}>{item.label}</a></li>)}
+        </ul>
+        <p class="mt-6 text-xs text-slate-500">Built as a portfolio demo with production-ready architecture.</p>
+      </div>
+    </div>
+
+    <div class="mt-10 border-t border-white/10 pt-6 text-xs text-slate-500">
+      <p>&copy; {new Date().getFullYear()} LogisticsFlow. All rights reserved.</p>
+    </div>
+  </Container>
+</footer>

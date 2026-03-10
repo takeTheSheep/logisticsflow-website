@@ -1,0 +1,29 @@
+---
+import Container from '@/components/common/Container.astro';
+import SectionHeading from '@/components/common/SectionHeading.astro';
+import ServiceCard from '@/components/common/ServiceCard.astro';
+import { services } from '@/data/services';
+---
+
+<section class="section-spacing">
+  <SectionHeading
+    eyebrow="Core Services"
+    title="Integrated services for freight, warehousing, and supply chain clarity."
+    description="Every service is structured around business outcomes: fewer delays, tighter communication, and stronger operational control."
+  />
+  <Container class="mt-10">
+    <div class="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+      {
+        services.map((service) => (
+          <ServiceCard
+            title={service.title}
+            summary={service.summary}
+            href={`/services#${service.id}`}
+            icon={service.icon}
+            signal={service.signal}
+          />
+        ))
+      }
+    </div>
+  </Container>
+</section>

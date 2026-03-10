@@ -1,0 +1,130 @@
+﻿---
+import Button from '@/components/common/Button.astro';
+import Container from '@/components/common/Container.astro';
+import MobileMenu from './MobileMenu.astro';
+import { navigationLinks } from '@/data/navigation';
+
+interface Props {
+  pathname: string;
+}
+
+const { pathname } = Astro.props as Props;
+---
+
+<header id="site-header" class="fixed inset-x-0 top-0 z-50 border-b border-transparent bg-white/10 transition-all duration-300">
+  <Container class="flex h-20 items-center justify-between">
+    <a href="/" class="group inline-flex items-center gap-3 font-display text-lg font-semibold text-white" aria-label="LogisticsFlow home">
+      <span class="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-cyan-200/55 bg-white/20 text-xs font-bold text-cyan-50">
+        LF
+      </span>
+      <span class="transition-colors group-hover:text-cyan-100">LogisticsFlow</span>
+    </a>
+
+    <nav aria-label="Primary" class="hidden items-center gap-8 md:flex">
+      {
+        navigationLinks.map((item) => {
+          const isActive = pathname === item.href;
+          return (
+            <a
+              href={item.href}
+              class={`relative text-sm font-medium transition-colors ${
+                isActive ? 'text-cyan-50' : 'text-slate-100 hover:text-white'
+              } after:absolute after:-bottom-2 after:left-0 after:h-0.5 after:w-full after:origin-left after:bg-cyan-300 after:transition-transform after:duration-300 ${
+                isActive ? 'after:scale-x-100' : 'after:scale-x-0 hover:after:scale-x-100'
+              }`}
+            >
+              {item.label}
+            </a>
+          );
+        })
+      }
+    </nav>
+
+    <div class="hidden items-center gap-3 md:flex">
+      <span class="rounded-full border border-white/35 bg-white/20 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-cyan-50">
+        Demo Mode
+      </span>
+      <Button href="/contact" size="sm">
+        Request Quote
+      </Button>
+    </div>
+
+    <button
+      type="button"
+      class="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-white/25 bg-white/15 text-slate-100 transition-colors hover:border-cyan-200/80 hover:text-cyan-50 md:hidden"
+      aria-label="Open navigation menu"
+      data-menu-toggle
+      aria-expanded="false"
+      aria-controls="mobile-navigation"
+    >
+      <span class="text-lg" aria-hidden="true">+</span>
+    </button>
+  </Container>
+  <MobileMenu pathname={pathname} />
+</header>
+
+<script>
+  const header = document.querySelector('#site-header');
+  const toggle = header?.querySelector('[data-menu-toggle]');
+  const menu = header?.querySelector('[data-mobile-menu]');
+  const links = menu?.querySelectorAll('[data-mobile-link]') ?? [];
+
+  const handleScroll = () => {
+    if (!header) return;
+    const isScrolled = window.scrollY > 16;
+    header.classList.toggle('border-white/25', isScrolled);
+    header.classList.toggle('bg-ink-900/65', isScrolled);
+    header.classList.toggle('backdrop-blur-xl', isScrolled);
+    header.classList.toggle('shadow-[0_20px_36px_-24px_rgba(18,34,58,0.5)]', isScrolled);
+  };
+
+  const closeMenu = () => {
+    if (!toggle || !menu) return;
+    toggle.setAttribute('aria-expanded', 'false');
+    menu.classList.remove('max-h-[420px]', 'opacity-100', 'pointer-events-auto');
+    menu.classList.add('max-h-0', 'opacity-0', 'pointer-events-none');
+    menu.setAttribute('aria-hidden', 'true');
+    const icon = toggle.querySelector('span');
+    if (icon) icon.textContent = '+';
+    document.body.classList.remove('overflow-hidden');
+  };
+
+  const openMenu = () => {
+    if (!toggle || !menu) return;
+    toggle.setAttribute('aria-expanded', 'true');
+    menu.classList.remove('max-h-0', 'opacity-0', 'pointer-events-none');
+    menu.classList.add('max-h-[420px]', 'opacity-100', 'pointer-events-auto');
+    menu.setAttribute('aria-hidden', 'false');
+    const icon = toggle.querySelector('span');
+    if (icon) icon.textContent = 'x';
+    document.body.classList.add('overflow-hidden');
+  };
+
+  toggle?.addEventListener('click', () => {
+    const expanded = toggle.getAttribute('aria-expanded') === 'true';
+    if (expanded) {
+      closeMenu();
+    } else {
+      openMenu();
+    }
+  });
+
+  links.forEach((link) => link.addEventListener('click', closeMenu));
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') {
+      closeMenu();
+    }
+  });
+
+  window.addEventListener('resize', () => {
+    if (window.innerWidth >= 768) {
+      closeMenu();
+    }
+  });
+
+  window.addEventListener('scroll', handleScroll, { passive: true });
+  handleScroll();
+</script>
+
+

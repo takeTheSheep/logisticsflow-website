@@ -1,0 +1,41 @@
+﻿---
+import MainLayout from '@/components/layout/MainLayout.astro';
+import PageHero from '@/components/common/PageHero.astro';
+import Container from '@/components/common/Container.astro';
+
+const pathname = Astro.url.pathname;
+---
+
+<MainLayout
+  title="Terms of Service"
+  description="Review LogisticsFlow demo terms for website usage, service scope, and liability limits."
+  pathname={pathname}
+>
+  <PageHero
+    eyebrow="Terms"
+    title="Terms of service"
+    description="These terms define acceptable use and clarify the demo nature of this portfolio project."
+  />
+
+  <section class="section-spacing pt-6">
+    <Container class="max-w-4xl">
+      <article class="rounded-3xl border border-white/10 bg-white/10 p-6 md:p-8">
+        <h2 class="text-xl font-semibold text-white">Demo scope</h2>
+        <p class="mt-3 text-slate-300">
+          LogisticsFlow is a portfolio demonstration project and does not represent a live carrier contract or production service agreement.
+        </p>
+
+        <h2 class="mt-6 text-xl font-semibold text-white">Usage policy</h2>
+        <p class="mt-3 text-slate-300">
+          Users may browse, evaluate, and reference this demo for educational or portfolio review purposes only.
+        </p>
+
+        <h2 class="mt-6 text-xl font-semibold text-white">Liability and accuracy</h2>
+        <p class="mt-3 text-slate-300">
+          Shipment data shown in this project is mock content for UX demonstration and should not be used for real operational decisions.
+        </p>
+      </article>
+    </Container>
+  </section>
+</MainLayout>
+

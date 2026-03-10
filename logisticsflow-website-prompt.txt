@@ -1,0 +1,775 @@
+You are a top-tier senior full-stack engineer, product designer, UI architect, and SaaS-grade codebase planner.
+
+Your task is to design and build a premium-quality demo project called “LogisticsFlow” — a modern, dark-theme, high-conversion business website for a logistics / freight / supply chain company.
+
+This is not a cheap template website. It must look like a polished, premium, credible digital product that could realistically be shown in a professional developer portfolio and presented to future clients as an example of high-end business website work.
+
+The goal is to create a website that demonstrates:
+1. Strong visual design
+2. Excellent frontend architecture
+3. Interactive UX
+4. High perceived business value
+5. Clean, scalable project structure
+6. Production-grade code quality
+7. Easy future extensibility into a full SaaS or custom backend product
+
+==================================================
+PROJECT OVERVIEW
+==================================================
+
+Project name:
+LogisticsFlow
+
+Repository name:
+logisticsflow-website
+
+Positioning:
+A premium logistics company website for freight, supply chain, warehousing, and transport services.
+
+Core objective:
+Showcase a modern service company website with strong structure, excellent UX, premium visuals, conversion-focused layout, and one meaningful interactive feature: a shipment tracking demo.
+
+IMPORTANT:
+- This is a demo / portfolio project, not a fake real client case study.
+- The website should feel realistic and business-ready.
+- All text content should be polished, concise, credible, and premium.
+- Do not make it generic or template-like.
+- The final result should feel like a custom-built modern agency-grade website.
+
+==================================================
+TECH STACK
+==================================================
+
+Use the following stack:
+- Astro
+- TypeScript
+- Tailwind CSS
+- Modular component-based architecture
+- Static-first rendering
+- Minimal client-side JavaScript only where interactivity is needed
+
+Optional but recommended:
+- Zod for validation
+- Framer Motion only if truly necessary and lightweight
+- Astro content collections if useful for structured content
+- SVG icons or a clean icon library
+
+Do NOT use:
+- WordPress
+- bloated dependencies
+- unnecessary animation libraries
+- any heavy UI framework
+- any generic prebuilt theme structure
+
+==================================================
+GLOBAL PRODUCT REQUIREMENTS
+==================================================
+
+Build the site like a premium production-ready project.
+
+The website must have:
+- clean information architecture
+- reusable UI components
+- scalable folder structure
+- polished responsive design
+- dark premium visual style
+- strong typography hierarchy
+- subtle gradients, depth, and glow
+- accessibility-conscious implementation
+- excellent mobile behavior
+- SEO-friendly semantic HTML
+- clean metadata
+- fast load performance
+- future-proof architecture
+
+The codebase must be easy to maintain and extend.
+
+==================================================
+DESIGN DIRECTION
+==================================================
+
+Create a premium dark UI with a professional and technological feel.
+
+Visual tone:
+- modern
+- elegant
+- enterprise-grade
+- trustworthy
+- slightly futuristic
+- minimal but rich
+- serious, not playful
+
+Design cues:
+- dark navy / near-black background
+- subtle teal / cyan accents
+- soft gradients
+- glassy or layered card feel where appropriate
+- refined borders
+- generous spacing
+- high contrast text
+- large bold headings
+- soft shadows and glow used carefully
+- subtle grid or texture in background if tasteful
+
+Avoid:
+- childish design
+- excessive neon
+- clutter
+- cheap startup clichés
+- over-animated sections
+- random illustrations unless premium and consistent
+- low-value stock-template feel
+
+==================================================
+TARGET PAGES
+==================================================
+
+Build the following pages:
+
+1. Home page
+2. Services page
+3. About page
+4. Tracking page
+5. Contact page
+6. 404 page
+7. Optional lightweight privacy page
+8. Optional lightweight terms page
+
+==================================================
+HOME PAGE SECTIONS
+==================================================
+
+The Home page must be conversion-oriented and visually impressive.
+
+Include these sections in order:
+
+1. Header / Navigation
+- logo: LogisticsFlow
+- links: Home, Services, About, Tracking, Contact
+- CTA button: Request Quote
+- sticky header on scroll
+- mobile menu with smooth open/close
+
+2. Hero Section
+- powerful headline focused on modern logistics execution
+- supporting paragraph explaining speed, visibility, and operational trust
+- primary CTA: Request Quote
+- secondary CTA: Track Shipment
+- right side visual: abstract logistics dashboard panel, route map, shipping metrics, or premium mockup
+- subtle animated accent elements allowed, but keep performance high
+
+3. Trust / Social Proof Row
+- showcase 3–5 trust indicators such as:
+  - on-time delivery rate
+  - countries served
+  - shipment visibility
+  - support response speed
+- these can be presented as metrics or partner-style indicators
+- do not use fake famous brands
+
+4. Services Overview
+- 4 to 6 service cards:
+  - Freight Coordination
+  - Warehousing
+  - Route Optimization
+  - Cross-Border Delivery
+  - Supply Chain Visibility
+  - Dedicated Business Support
+- each card should be elegant and clickable
+- on hover: subtle border glow / elevation
+
+5. Why LogisticsFlow
+- 3 or 4 premium value blocks
+- examples:
+  - Real-Time Visibility
+  - Reliable Delivery Execution
+  - Scalable Operations
+  - Clear Communication
+- each block should explain business outcome, not just features
+
+6. Shipment Tracking Demo Preview
+- one of the most important sections
+- include a clean input field for a tracking ID
+- include demo CTA button: Check Status
+- examples of valid demo IDs:
+  - LF-48291
+  - LF-19420
+  - LF-77354
+- after submit, show a polished tracking result card with:
+  - shipment status
+  - route
+  - estimated arrival
+  - latest checkpoint
+  - shipment type
+- this should feel premium and realistic
+- if the user enters an invalid code, show a clean inline validation message
+- use mocked local demo data
+- no real backend required yet, but architect the code so API integration can be added later easily
+
+7. Process Section
+- show clear 4-step flow:
+  - Request
+  - Planning
+  - Dispatch
+  - Delivery Visibility
+- keep it clean and business-focused
+
+8. Featured Industries
+- examples:
+  - Retail
+  - Manufacturing
+  - E-commerce
+  - Wholesale
+  - Medical Supply
+- use compact cards or chips
+
+9. Testimonials / Client-style Quotes
+- use realistic placeholder testimonials without inventing real companies
+- can say:
+  - Operations Manager, regional distributor
+  - Supply Chain Lead, mid-size commerce brand
+- keep them believable
+
+10. CTA Banner
+- strong conversion block
+- headline around improving logistics clarity and execution
+- CTA buttons:
+  - Request Quote
+  - Contact Team
+
+11. Footer
+- links
+- short company summary
+- contact email placeholder
+- service links
+- legal links
+- social placeholders if needed
+
+==================================================
+SERVICES PAGE
+==================================================
+
+Build a premium services page with deeper descriptions.
+
+Include:
+- hero heading
+- service grid
+- each service card expands into detailed block or links to anchored sections
+- sections for:
+  - Freight Coordination
+  - Warehousing & Fulfillment
+  - Supply Chain Visibility
+  - Route Planning
+  - Cross-Border Support
+  - Dedicated Account Communication
+
+For each service include:
+- short summary
+- business problem
+- how the company solves it
+- key benefits
+- optional process bullets
+
+Include CTA at bottom:
+- Request a logistics consultation
+
+==================================================
+ABOUT PAGE
+==================================================
+
+The About page should feel credible and premium, not overlong.
+
+Include:
+- company mission
+- operational philosophy
+- value pillars
+- concise company story
+- metrics block
+- optional team-style section with roles instead of real people if needed:
+  - Operations Strategy
+  - Route Coordination
+  - Warehouse Support
+  - Client Communication
+
+Make it feel like a serious logistics brand.
+
+==================================================
+TRACKING PAGE
+==================================================
+
+This page is a major portfolio differentiator.
+
+Build a full dedicated tracking experience.
+
+Requirements:
+- hero heading: Track your shipment
+- centered tracking card
+- input with validation
+- button to check shipment
+- optional list of sample demo codes below input
+- clean loading state
+- tracking result card with premium visual layout
+
+Tracking result should show:
+- shipment ID
+- status badge
+- origin
+- destination
+- estimated arrival
+- last update timestamp
+- current location
+- shipment type
+- service level
+- timeline / progress steps
+- support note if delayed or customs processing
+
+Statuses to support:
+- Label Created
+- Picked Up
+- In Transit
+- Arrived at Hub
+- Out for Delivery
+- Delivered
+- Delayed
+
+The shipment timeline should be visually polished:
+- vertical or horizontal stepper
+- clear state indication
+- timestamps
+- location labels
+
+Data source:
+- local mock dataset in a dedicated data module
+- code should be structured so future API replacement is straightforward
+
+==================================================
+CONTACT PAGE
+==================================================
+
+The Contact page must look premium and useful.
+
+Include:
+- hero heading
+- contact intro text
+- structured contact form
+- optional office / availability block
+- optional FAQ accordion
+
+Form fields:
+- Full Name
+- Company
+- Email
+- Phone (optional)
+- Service Needed
+- Message
+
+Requirements:
+- client-side validation
+- accessible labels
+- success state
+- error state
+- anti-spam mitigation architecture ready
+- form component should be easy to connect to Formspree, Resend, custom API, or serverless endpoint later
+
+==================================================
+USER EXPERIENCE DETAILS
+==================================================
+
+Create premium micro-interactions:
+- hover elevation on cards
+- smooth button transitions
+- subtle section reveal on scroll if lightweight
+- polished input focus states
+- animated underline / border transitions if tasteful
+- sticky header transition on scroll
+- refined mobile navigation interaction
+
+Use motion carefully:
+- no excessive animation
+- prioritize clarity and premium feel
+- keep performance high
+
+==================================================
+RESPONSIVE DESIGN REQUIREMENTS
+==================================================
+
+Must be fully responsive.
+
+Desktop:
+- strong layout composition
+- layered hero
+- spacious sections
+
+Tablet:
+- preserve hierarchy
+- no cramped content
+
+Mobile:
+- clean vertical stacking
+- excellent spacing
+- readable typography
+- large tap targets
+- simplified but premium tracking UI
+- mobile menu must feel polished
+
+==================================================
+ACCESSIBILITY REQUIREMENTS
+==================================================
+
+Implement accessibility best practices:
+- semantic HTML
+- aria labels where useful
+- keyboard-navigable menu
+- visible focus states
+- sufficient contrast
+- form labels linked correctly
+- buttons and links distinguishable
+- avoid inaccessible animation patterns
+
+==================================================
+SECURITY / HARDENING REQUIREMENTS
+==================================================
+
+Even though this is primarily a frontend demo project, implement the project with production awareness and security-conscious architecture.
+
+Include:
+- no exposed secrets
+- environment variable pattern ready even if not heavily used
+- strict input validation for tracking and contact forms
+- sanitize and constrain user input
+- no dangerous HTML injection
+- safe data handling patterns
+- no client-side trust assumptions documented as final backend logic
+- future-ready form submission abstraction
+- clear placeholder for rate limiting if connected to backend later
+- clear placeholder for CAPTCHA / Turnstile integration
+- safe header recommendations documented
+- CSP-ready mindset documented
+- no insecure third-party script dependencies unless necessary
+
+Also provide a documentation note describing recommended future deployment hardening:
+- content security policy
+- rate limiting
+- bot protection
+- server-side validation
+- spam filtering
+- analytics privacy review
+- secure form handler
+- logging and monitoring
+- uptime checks
+
+==================================================
+PERFORMANCE REQUIREMENTS
+==================================================
+
+The site should be optimized for speed.
+
+Requirements:
+- static-first architecture
+- minimize hydration
+- lazy-load noncritical visuals where useful
+- optimized images
+- SVG where appropriate
+- clean Tailwind usage
+- avoid JS-heavy sections
+- prioritize Lighthouse-friendly output
+- strong Core Web Vitals awareness
+
+==================================================
+SEO / METADATA REQUIREMENTS
+==================================================
+
+Even though this is not an SEO service showcase, implement strong technical on-page foundations:
+
+- proper title and meta description per page
+- Open Graph tags
+- Twitter card metadata
+- canonical-ready structure
+- semantic heading order
+- descriptive alt text
+- structured layout and crawl-friendly markup
+- robots.txt
+- sitemap generation if practical in Astro
+- favicon setup
+- clean URL structure
+
+==================================================
+CONTENT QUALITY
+==================================================
+
+Write premium business copy.
+
+Tone:
+- concise
+- credible
+- clear
+- confident
+- modern
+- not overhyped
+- not generic corporate nonsense
+
+Avoid:
+- buzzword overload
+- fluffy filler
+- unrealistic claims
+- cliché startup phrases
+
+The content should feel like a real premium logistics business website.
+
+==================================================
+COMPONENT ARCHITECTURE
+==================================================
+
+Build reusable components.
+
+Suggested component list:
+- Layout
+- Header
+- MobileMenu
+- Footer
+- SectionHeading
+- CTAButton
+- ServiceCard
+- MetricCard
+- ValueBlock
+- TrackingForm
+- TrackingResultCard
+- TrackingTimeline
+- TestimonialCard
+- ContactForm
+- FAQAccordion
+- PageHero
+- Badge
+- Container
+- GridSection
+
+Components should be modular and reusable.
+
+==================================================
+PROJECT FILE / FOLDER STRUCTURE
+==================================================
+
+Use a clean SaaS-grade structure like this:
+
+/
+  public/
+    favicon/
+    images/
+      brand/
+      pages/
+      og/
+    icons/
+  src/
+    assets/
+    components/
+      common/
+        Button.astro
+        Container.astro
+        SectionHeading.astro
+        Badge.astro
+      layout/
+        Header.astro
+        Footer.astro
+        MobileMenu.astro
+        MainLayout.astro
+      home/
+        HeroSection.astro
+        TrustMetrics.astro
+        ServicesOverview.astro
+        WhyChooseSection.astro
+        TrackingPreview.astro
+        ProcessSection.astro
+        IndustriesSection.astro
+        TestimonialsSection.astro
+        CTASection.astro
+      tracking/
+        TrackingForm.astro
+        TrackingResultCard.astro
+        TrackingTimeline.astro
+      contact/
+        ContactForm.astro
+        FAQAccordion.astro
+      services/
+        ServiceDetailBlock.astro
+      about/
+        ValuePillars.astro
+        TeamRoles.astro
+    content/
+      testimonials/
+      services/
+      faq/
+    data/
+      navigation.ts
+      services.ts
+      testimonials.ts
+      metrics.ts
+      industries.ts
+      trackingDemo.ts
+      company.ts
+    lib/
+      tracking/
+        validateTrackingCode.ts
+        getTrackingRecord.ts
+      forms/
+        validateContactForm.ts
+      utils/
+        cn.ts
+        formatDate.ts
+        seo.ts
+    pages/
+      index.astro
+      services.astro
+      about.astro
+      tracking.astro
+      contact.astro
+      privacy.astro
+      terms.astro
+      404.astro
+    styles/
+      global.css
+      tokens.css
+    types/
+      tracking.ts
+      forms.ts
+      content.ts
+    env.d.ts
+  astro.config.mjs
+  tailwind.config.mjs
+  tsconfig.json
+  package.json
+  README.md
+  .env.example
+
+Architecture rules:
+- keep data separate from UI
+- keep validation separate from components
+- keep utility functions small and focused
+- avoid dumping everything into pages
+- document extension points clearly
+
+==================================================
+TRACKING FEATURE IMPLEMENTATION RULES
+==================================================
+
+Implement the shipment tracking demo in a way that can be upgraded later.
+
+Requirements:
+- a mock dataset file with several shipment records
+- a validation helper for tracking ID pattern
+- a lookup helper
+- a presentational result card component
+- timeline UI component
+- clear empty, loading, success, and error states
+
+Example tracking ID format:
+LF-48291
+
+Example records:
+- In Transit: Hamburg → Amsterdam
+- Arrived at Hub: Rotterdam → Brussels
+- Delivered: Berlin → Cologne
+- Delayed: Warsaw → Paris
+
+Do not hardcode logic directly in page markup.
+Use proper data and helper separation.
+
+==================================================
+CONTACT FORM IMPLEMENTATION RULES
+==================================================
+
+Build the contact form with scalable architecture.
+
+Requirements:
+- typed form model
+- validation helper
+- inline errors
+- clear success state UI
+- clear backend integration boundary
+- anti-spam placeholder notes
+- optional hidden honeypot field architecture
+- submit button loading state
+- easy future upgrade to serverless endpoint or API route
+
+==================================================
+VISUAL DETAILS
+==================================================
+
+Pay special attention to:
+- premium section spacing
+- card corner radius consistency
+- border opacity consistency
+- subtle gradient overlays
+- clean UI density
+- polished badges
+- business-grade buttons
+- typography rhythm
+- tasteful highlight color usage
+- strong CTA emphasis
+- consistent visual language across all pages
+
+The website should feel expensive.
+
+==================================================
+README REQUIREMENTS
+==================================================
+
+Generate a strong README.md including:
+- project overview
+- stack
+- features
+- pages
+- tracking demo explanation
+- project structure summary
+- local setup steps
+- future improvement roadmap
+- deployment notes
+- performance notes
+- security notes
+
+The README should look professional and portfolio-ready.
+
+==================================================
+FUTURE EXTENSIBILITY
+==================================================
+
+Design the codebase so it can later be extended with:
+- real shipment tracking API
+- admin dashboard
+- customer portal
+- CMS integration
+- multilingual support
+- quote request backend
+- analytics integration
+- CRM integration
+- email notifications
+- authentication layer
+
+Make sure the architecture does not block future upgrades.
+
+==================================================
+DELIVERABLE EXPECTATIONS
+==================================================
+
+Deliver a complete, high-quality project scaffold and implementation plan with:
+- final page structure
+- reusable component system
+- full content direction
+- clean TypeScript patterns
+- scalable Astro architecture
+- premium UI direction
+- interactive tracking demo
+- contact form architecture
+- security-conscious frontend patterns
+- performance-friendly implementation
+
+Output should be production-minded, polished, and portfolio-worthy.
+
+When making implementation choices, always prefer:
+- maintainability
+- clarity
+- modularity
+- premium UX
+- realistic business credibility
+- future extensibility
+
+Build this like a senior engineer who understands both product quality and codebase longevity.

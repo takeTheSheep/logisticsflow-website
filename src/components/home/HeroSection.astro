@@ -1,0 +1,174 @@
+﻿---
+import Badge from '@/components/common/Badge.astro';
+import Button from '@/components/common/Button.astro';
+import Container from '@/components/common/Container.astro';
+---
+
+<section class="section-spacing relative overflow-hidden pt-28 md:pt-36" id="hero-platform-preview">
+  <div class="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_80%_12%,rgba(175,236,255,0.22),transparent_34%),radial-gradient(circle_at_10%_45%,rgba(255,192,153,0.18),transparent_28%)]"></div>
+
+  <Container>
+    <div class="grid items-center gap-10 lg:grid-cols-[1.05fr_0.95fr]">
+      <div class="animate-fade-up" data-reveal>
+        <div class="flex flex-wrap items-center gap-2">
+          <Badge text="Enterprise logistics execution" />
+          <Badge text="Simulated Platform Demo" tone="neutral" />
+        </div>
+
+        <h1 class="mt-6 max-w-3xl text-4xl font-bold leading-tight text-white md:text-6xl">
+          Explore a live logistics platform preview, not just a marketing website.
+        </h1>
+        <p class="mt-6 max-w-2xl text-base text-slate-200 md:text-lg">
+          LogisticsFlow demonstrates shipment visibility, operations intelligence, and UI state systems through interactive product modules built for portfolio-grade engineering storytelling.
+        </p>
+        <div class="mt-8 flex flex-wrap items-center gap-3">
+          <Button href="/contact" size="lg">Request Quote</Button>
+          <Button href="/tracking" size="lg" variant="secondary">Track Shipment</Button>
+        </div>
+      </div>
+
+      <aside class="section-shell grid-pattern relative overflow-hidden p-6 md:p-8" data-reveal>
+        <div class="absolute inset-0 bg-gradient-to-br from-cyan-200/20 via-transparent to-transparent"></div>
+
+        <div class="relative">
+          <div class="mb-4 flex items-center justify-between rounded-xl border border-white/20 bg-white/20 px-4 py-3">
+            <p class="text-sm text-slate-100">Demo lane activity</p>
+            <p class="text-sm font-semibold text-cyan-50">4 active routes</p>
+          </div>
+
+          <div class="relative overflow-hidden rounded-2xl border border-white/20 bg-white/15 p-4">
+            <svg viewBox="0 0 420 280" class="w-full" aria-hidden="true">
+              <rect x="0" y="0" width="420" height="280" fill="rgba(255,255,255,0.04)" />
+              <path d="M70 205 115 145l68-36 47-8 48 13 30 28 11 37-15 35-68 24-67-12-46 9z" fill="rgba(215,239,255,0.18)" stroke="rgba(220,244,255,0.45)" />
+              <path class="hero-route transit" d="M185 112 Q 165 128 146 145" />
+              <path class="hero-route delivered" d="M212 110 Q 190 142 166 171" />
+              <path class="hero-route delayed" d="M248 117 Q 220 128 153 160" />
+              <circle cx="171" cy="130" r="4" class="hero-dot"></circle>
+              <circle cx="187" cy="145" r="4" class="hero-dot"></circle>
+              <circle cx="205" cy="126" r="4" class="hero-dot"></circle>
+            </svg>
+
+            <article class="floating-card floating-card-a">
+              <p class="font-semibold text-ink-900">LF-48291</p>
+              <p class="text-[11px] text-ink-800">Hamburg -> Amsterdam</p>
+              <span class="mt-1 inline-flex rounded-full border border-cyan-300/45 bg-cyan-300/25 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-[0.08em] text-ink-900">
+                In Transit
+              </span>
+            </article>
+
+            <article class="floating-card floating-card-b">
+              <p class="font-semibold text-ink-900">LF-77354</p>
+              <p class="text-[11px] text-ink-800">Warsaw -> Paris</p>
+              <span class="mt-1 inline-flex rounded-full border border-rose-300/45 bg-rose-300/30 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-[0.08em] text-ink-900">
+                Delayed
+              </span>
+            </article>
+          </div>
+
+          <div class="mt-4 grid gap-3 sm:grid-cols-2">
+            <div class="rounded-xl border border-white/15 bg-white/15 p-4">
+              <p class="text-xs uppercase tracking-[0.1em] text-slate-200">Tracking API</p>
+              <p class="mt-2 text-xl font-semibold text-white">Online</p>
+            </div>
+            <div class="rounded-xl border border-white/15 bg-white/15 p-4">
+              <p class="text-xs uppercase tracking-[0.1em] text-slate-200">Route Engine</p>
+              <p class="mt-2 text-xl font-semibold text-white">Operational</p>
+            </div>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </Container>
+</section>
+
+<style>
+  .hero-route {
+    fill: none;
+    stroke-width: 2.1;
+    stroke-linecap: round;
+    stroke-dasharray: 6 7;
+    animation: heroRouteFlow 6.5s linear infinite;
+  }
+
+  .hero-route.transit {
+    stroke: rgba(140, 230, 255, 0.95);
+  }
+
+  .hero-route.delivered {
+    stroke: rgba(152, 241, 184, 0.92);
+  }
+
+  .hero-route.delayed {
+    stroke: rgba(255, 159, 159, 0.92);
+  }
+
+  .hero-dot {
+    fill: rgba(255, 255, 255, 0.94);
+    filter: drop-shadow(0 0 6px rgba(180, 236, 255, 0.85));
+    animation: heroDotPulse 2.4s ease-in-out infinite;
+  }
+
+  .floating-card {
+    position: absolute;
+    min-width: 132px;
+    border-radius: 0.72rem;
+    border: 1px solid rgba(255, 255, 255, 0.36);
+    background: rgba(248, 253, 255, 0.83);
+    padding: 0.52rem 0.66rem;
+    box-shadow: 0 14px 36px -22px rgba(20, 52, 80, 0.7);
+    backdrop-filter: blur(6px);
+  }
+
+  .floating-card-a {
+    left: 10%;
+    top: 11%;
+    animation: cardFloatA 4.2s ease-in-out infinite;
+  }
+
+  .floating-card-b {
+    right: 8%;
+    bottom: 9%;
+    animation: cardFloatB 4.8s ease-in-out infinite;
+  }
+
+  @keyframes heroRouteFlow {
+    from {
+      stroke-dashoffset: 0;
+    }
+    to {
+      stroke-dashoffset: -240;
+    }
+  }
+
+  @keyframes heroDotPulse {
+    0%,
+    100% {
+      transform: scale(1);
+      opacity: 0.95;
+    }
+    50% {
+      transform: scale(1.32);
+      opacity: 0.55;
+    }
+  }
+
+  @keyframes cardFloatA {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-7px);
+    }
+  }
+
+  @keyframes cardFloatB {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-9px);
+    }
+  }
+</style>

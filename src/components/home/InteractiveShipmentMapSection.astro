@@ -1,0 +1,176 @@
+﻿---
+import Container from '@/components/common/Container.astro';
+import SectionHeading from '@/components/common/SectionHeading.astro';
+import { mapShipments } from '@/data/platform';
+
+const statusClassMap = {
+  'In Transit': 'border-cyan-200/50 bg-cyan-200/20 text-cyan-50',
+  Delivered: 'border-emerald-300/50 bg-emerald-300/20 text-emerald-50',
+  Delayed: 'border-rose-300/50 bg-rose-300/20 text-rose-50',
+  'Arrived at Hub': 'border-indigo-200/50 bg-indigo-200/20 text-indigo-50',
+} as const;
+
+const routeClassMap = {
+  'In Transit': 'route-path-transit',
+  Delivered: 'route-path-delivered',
+  Delayed: 'route-path-delayed',
+  'Arrived at Hub': 'route-path-hub',
+} as const;
+
+const toLeft = (value: number): string => `${(value / 760) * 100}%`;
+const toTop = (value: number): string => `${(value / 360) * 100}%`;
+---
+
+<section class="section-spacing pt-4" id="global-visibility">
+  <SectionHeading
+    eyebrow="Global Shipment Visibility"
+    title="Interactive shipment map preview"
+    description="A simulated route map with live shipment markers, animated corridors, and status context across major European lanes."
+  />
+
+  <Container class="mt-10">
+    <div class="section-shell relative overflow-hidden p-4 sm:p-6 md:p-8" data-reveal>
+      <div class="absolute right-6 top-6 flex flex-wrap gap-2 text-[11px] font-semibold uppercase tracking-[0.12em]">
+        <span class="rounded-full border border-white/30 bg-white/20 px-2.5 py-1 text-cyan-50">Demo Shipment Data</span>
+        <span class="rounded-full border border-white/30 bg-white/20 px-2.5 py-1 text-slate-100">Simulated Tracking Environment</span>
+      </div>
+
+      <div class="relative mt-12 overflow-hidden rounded-2xl border border-white/20 bg-white/10 p-3 sm:p-4">
+        <svg viewBox="0 0 760 360" class="h-auto w-full" role="img" aria-label="Shipment route map">
+          <defs>
+            <pattern id="map-grid" width="22" height="22" patternUnits="userSpaceOnUse">
+              <path d="M 22 0 L 0 0 0 22" fill="none" stroke="rgba(211,235,255,0.12)" stroke-width="1" />
+            </pattern>
+          </defs>
+
+          <rect width="760" height="360" fill="url(#map-grid)" />
+
+          <path
+            d="M129 274 164 229l50-18 49-38 16-43 37-40 51-12 36 25 24 8 31 30 24 40-12 18-10 37-41 26-56 22-28-4-34 15-37-15-53 8-43-27z"
+            fill="rgba(229,244,255,0.16)"
+            stroke="rgba(206,237,255,0.45)"
+            stroke-width="1.4"
+          />
+
+          {
+            mapShipments.map((shipment) => (
+              <path
+                d={`M ${shipment.path.start.x} ${shipment.path.start.y} Q ${shipment.path.control.x} ${shipment.path.control.y} ${shipment.path.end.x} ${shipment.path.end.y}`}
+                class={`route-path ${routeClassMap[shipment.status]}`}
+              />
+            ))
+          }
+
+          {
+            mapShipments.map((shipment) => (
+              <g>
+                <circle cx={shipment.marker.x} cy={shipment.marker.y} r="7" class="marker-pulse" />
+                <circle cx={shipment.marker.x} cy={shipment.marker.y} r="3.5" class="marker-core" />
+              </g>
+            ))
+          }
+        </svg>
+
+        {
+          mapShipments.map((shipment, index) => (
+            <article
+              class="map-popup absolute z-10 hidden min-w-[164px] rounded-xl border border-white/25 bg-white/80 px-3 py-2 text-xs shadow-card backdrop-blur-md sm:block"
+              style={`left: ${toLeft(shipment.marker.x)}; top: ${toTop(shipment.marker.y)}; animation-delay: ${index * 0.22}s`}
+            >
+              <p class="font-semibold text-ink-900">{shipment.id}</p>
+              <p class="mt-0.5 text-[11px] text-ink-800">{shipment.origin} -> {shipment.destination}</p>
+              <span class={`mt-1 inline-flex rounded-full border px-2 py-0.5 text-[10px] font-semibold uppercase tracking-[0.08em] ${statusClassMap[shipment.status]}`}>
+                {shipment.status}
+              </span>
+            </article>
+          ))
+        }
+      </div>
+
+      <div class="mt-4 grid gap-3 sm:hidden">
+        {
+          mapShipments.map((shipment) => (
+            <article class="rounded-xl border border-white/20 bg-white/15 px-3 py-2 text-xs">
+              <p class="font-semibold text-white">{shipment.id}</p>
+              <p class="text-slate-200">{shipment.origin} -> {shipment.destination}</p>
+              <span class={`mt-1 inline-flex rounded-full border px-2 py-0.5 text-[10px] font-semibold uppercase tracking-[0.08em] ${statusClassMap[shipment.status]}`}>
+                {shipment.status}
+              </span>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </Container>
+</section>
+
+<style>
+  .route-path {
+    fill: none;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-dasharray: 6 8;
+    animation: routeDash 7s linear infinite;
+  }
+
+  .route-path-transit {
+    stroke: rgba(126, 225, 255, 0.95);
+  }
+
+  .route-path-delivered {
+    stroke: rgba(132, 241, 180, 0.9);
+  }
+
+  .route-path-delayed {
+    stroke: rgba(255, 159, 159, 0.88);
+  }
+
+  .route-path-hub {
+    stroke: rgba(185, 179, 255, 0.9);
+  }
+
+  .marker-pulse {
+    fill: rgba(153, 231, 255, 0.42);
+    animation: markerPulse 2.4s ease-in-out infinite;
+  }
+
+  .marker-core {
+    fill: rgba(248, 254, 255, 0.98);
+  }
+
+  .map-popup {
+    transform: translate(-50%, -120%);
+    animation: floatCard 4s ease-in-out infinite;
+  }
+
+  @keyframes routeDash {
+    from {
+      stroke-dashoffset: 0;
+    }
+    to {
+      stroke-dashoffset: -220;
+    }
+  }
+
+  @keyframes markerPulse {
+    0%,
+    100% {
+      transform: scale(1);
+      opacity: 0.85;
+    }
+    50% {
+      transform: scale(1.35);
+      opacity: 0.4;
+    }
+  }
+
+  @keyframes floatCard {
+    0%,
+    100% {
+      transform: translate(-50%, -120%) translateY(0);
+    }
+    50% {
+      transform: translate(-50%, -120%) translateY(-6px);
+    }
+  }
+</style>

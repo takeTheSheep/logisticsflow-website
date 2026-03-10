@@ -1,0 +1,206 @@
+﻿---
+import Button from '@/components/common/Button.astro';
+---
+
+<section class="rounded-3xl border border-white/10 bg-white/10 p-6 md:p-8" aria-labelledby="contact-form-heading">
+  <h2 id="contact-form-heading" class="text-2xl font-semibold text-white">Request a consultation</h2>
+  <p class="mt-2 text-sm text-slate-300">
+    Submit your logistics requirements and our team will respond with a tailored plan. All submissions are validated client-side and expected to be revalidated server-side after integration.
+  </p>
+
+  <form data-contact-form class="mt-6 space-y-4" novalidate>
+    <div class="grid gap-4 md:grid-cols-2">
+      <div>
+        <label for="fullName" class="mb-2 block text-sm font-medium text-slate-100">Full Name</label>
+        <input id="fullName" name="fullName" type="text" class="h-11 w-full rounded-xl border border-white/15 bg-white/10 px-4 text-sm text-white" autocomplete="name" required />
+        <p data-error-for="fullName" class="mt-1 text-xs text-rose-300" hidden></p>
+      </div>
+      <div>
+        <label for="company" class="mb-2 block text-sm font-medium text-slate-100">Company</label>
+        <input id="company" name="company" type="text" class="h-11 w-full rounded-xl border border-white/15 bg-white/10 px-4 text-sm text-white" autocomplete="organization" required />
+        <p data-error-for="company" class="mt-1 text-xs text-rose-300" hidden></p>
+      </div>
+    </div>
+
+    <div class="grid gap-4 md:grid-cols-2">
+      <div>
+        <label for="email" class="mb-2 block text-sm font-medium text-slate-100">Email</label>
+        <input id="email" name="email" type="email" class="h-11 w-full rounded-xl border border-white/15 bg-white/10 px-4 text-sm text-white" autocomplete="email" required />
+        <p data-error-for="email" class="mt-1 text-xs text-rose-300" hidden></p>
+      </div>
+      <div>
+        <label for="phone" class="mb-2 block text-sm font-medium text-slate-100">Phone (Optional)</label>
+        <input id="phone" name="phone" type="tel" class="h-11 w-full rounded-xl border border-white/15 bg-white/10 px-4 text-sm text-white" autocomplete="tel" />
+        <p data-error-for="phone" class="mt-1 text-xs text-rose-300" hidden></p>
+      </div>
+    </div>
+
+    <div>
+      <label for="serviceNeeded" class="mb-2 block text-sm font-medium text-slate-100">Service Needed</label>
+      <select id="serviceNeeded" name="serviceNeeded" class="h-11 w-full rounded-xl border border-white/15 bg-white/10 px-4 text-sm text-white" required>
+        <option value="">Select a service</option>
+        <option value="Freight Coordination">Freight Coordination</option>
+        <option value="Warehousing & Fulfillment">Warehousing & Fulfillment</option>
+        <option value="Supply Chain Visibility">Supply Chain Visibility</option>
+        <option value="Route Planning">Route Planning</option>
+        <option value="Cross-Border Support">Cross-Border Support</option>
+        <option value="Dedicated Account Communication">Dedicated Account Communication</option>
+      </select>
+      <p data-error-for="serviceNeeded" class="mt-1 text-xs text-rose-300" hidden></p>
+    </div>
+
+    <div>
+      <label for="message" class="mb-2 block text-sm font-medium text-slate-100">Message</label>
+      <textarea
+        id="message"
+        name="message"
+        class="min-h-[140px] w-full rounded-xl border border-white/15 bg-white/10 px-4 py-3 text-sm text-white"
+        placeholder="Share your current shipment challenges, lane complexity, and delivery targets."
+        required
+      ></textarea>
+      <p data-error-for="message" class="mt-1 text-xs text-rose-300" hidden></p>
+    </div>
+
+    <div class="hidden" aria-hidden="true">
+      <label for="companyWebsite">Company Website</label>
+      <input id="companyWebsite" name="companyWebsite" type="text" tabindex="-1" autocomplete="off" />
+    </div>
+
+    <p class="text-xs text-slate-400">
+      Anti-spam readiness: this form includes a honeypot field and is structured for future Turnstile or CAPTCHA integration plus server-side rate limiting.
+    </p>
+
+    <p data-form-error class="rounded-xl border border-rose-300/40 bg-rose-300/10 px-4 py-3 text-sm text-rose-100" hidden></p>
+    <p data-form-success class="rounded-xl border border-emerald-300/40 bg-emerald-300/10 px-4 py-3 text-sm text-emerald-100" hidden>
+      Submission received. A logistics specialist will contact you shortly.
+    </p>
+
+    <Button type="submit" size="lg" data-submit-button>Send Request</Button>
+  </form>
+</section>
+
+<script>
+  import { validateContactForm } from '@/lib/forms/validateContactForm';
+  import type { ContactFormData } from '@/types/forms';
+
+  const form = document.querySelector('[data-contact-form]');
+
+  if (form instanceof HTMLFormElement) {
+    const submitButton = form.querySelector<HTMLButtonElement>('[data-submit-button]');
+    const errorBanner = form.querySelector<HTMLParagraphElement>('[data-form-error]');
+    const successBanner = form.querySelector<HTMLParagraphElement>('[data-form-success]');
+    const fieldErrorEls = form.querySelectorAll<HTMLParagraphElement>('[data-error-for]');
+
+    const setLoading = (loading: boolean): void => {
+      if (!submitButton) return;
+      submitButton.disabled = loading;
+      submitButton.textContent = loading ? 'Sending...' : 'Send Request';
+    };
+
+    const clearFieldErrors = (): void => {
+      fieldErrorEls.forEach((el) => {
+        el.textContent = '';
+        el.setAttribute('hidden', 'true');
+      });
+
+      form.querySelectorAll('input, select, textarea').forEach((field) => {
+        if (field instanceof HTMLElement) {
+          field.removeAttribute('aria-invalid');
+        }
+      });
+    };
+
+    const showFieldError = (fieldName: string, message: string): void => {
+      const target = form.querySelector<HTMLParagraphElement>(`[data-error-for="${fieldName}"]`);
+      const field = form.elements.namedItem(fieldName);
+
+      if (target) {
+        target.textContent = message;
+        target.removeAttribute('hidden');
+      }
+
+      if (field instanceof Element) {
+        field.setAttribute('aria-invalid', 'true');
+      }
+    };
+
+    const hideBanners = (): void => {
+      errorBanner?.setAttribute('hidden', 'true');
+      successBanner?.setAttribute('hidden', 'true');
+    };
+
+    const submitToEndpoint = async (payload: ContactFormData): Promise<void> => {
+      const endpoint = import.meta.env.PUBLIC_CONTACT_ENDPOINT;
+
+      if (!endpoint) {
+        await new Promise((resolve) => setTimeout(resolve, 650));
+        return;
+      }
+
+      const response = await fetch(endpoint, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(payload),
+      });
+
+      if (!response.ok) {
+        throw new Error('Submission failed.');
+      }
+    };
+
+    form.addEventListener('submit', async (event: SubmitEvent) => {
+      event.preventDefault();
+      hideBanners();
+      clearFieldErrors();
+
+      const formData = new FormData(form);
+      const payload: ContactFormData = {
+        fullName: String(formData.get('fullName') ?? ''),
+        company: String(formData.get('company') ?? ''),
+        email: String(formData.get('email') ?? ''),
+        phone: String(formData.get('phone') ?? ''),
+        serviceNeeded: String(formData.get('serviceNeeded') ?? ''),
+        message: String(formData.get('message') ?? ''),
+        companyWebsite: String(formData.get('companyWebsite') ?? ''),
+      };
+
+      const validation = validateContactForm(payload);
+
+      if (!validation.isValid) {
+        Object.entries(validation.errors).forEach(([field, message]) => {
+          if (message) showFieldError(field, message);
+        });
+
+        if (errorBanner) {
+          errorBanner.textContent = 'Please correct the highlighted fields and try again.';
+          errorBanner.removeAttribute('hidden');
+        }
+        return;
+      }
+
+      try {
+        setLoading(true);
+        await submitToEndpoint(validation.data);
+        setLoading(false);
+        form.reset();
+        hideBanners();
+        successBanner?.removeAttribute('hidden');
+      } catch {
+        setLoading(false);
+        if (errorBanner) {
+          errorBanner.textContent = 'We could not send your request right now. Please try again or email contact@logisticsflow.example.';
+          errorBanner.removeAttribute('hidden');
+        }
+      }
+    });
+
+    form.addEventListener('input', () => {
+      clearFieldErrors();
+      hideBanners();
+    });
+  }
+</script>
+
+

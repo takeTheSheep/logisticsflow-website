@@ -1,0 +1,41 @@
+﻿---
+import MainLayout from '@/components/layout/MainLayout.astro';
+import PageHero from '@/components/common/PageHero.astro';
+import Container from '@/components/common/Container.astro';
+
+const pathname = Astro.url.pathname;
+---
+
+<MainLayout
+  title="Privacy Policy"
+  description="Review the LogisticsFlow demo privacy policy and data handling principles."
+  pathname={pathname}
+>
+  <PageHero
+    eyebrow="Privacy"
+    title="Privacy policy"
+    description="This demo policy outlines data handling principles for form submissions and site analytics in a production deployment."
+  />
+
+  <section class="section-spacing pt-6">
+    <Container class="max-w-4xl">
+      <article class="rounded-3xl border border-white/10 bg-white/10 p-6 md:p-8">
+        <h2 class="text-xl font-semibold text-white">Data collection</h2>
+        <p class="mt-3 text-slate-300">
+          Contact form data is collected only for service inquiry response and should be processed through a secure backend endpoint in production.
+        </p>
+
+        <h2 class="mt-6 text-xl font-semibold text-white">Data retention</h2>
+        <p class="mt-3 text-slate-300">
+          Retain inquiry data only as long as operationally necessary and aligned with regional compliance requirements.
+        </p>
+
+        <h2 class="mt-6 text-xl font-semibold text-white">Security controls</h2>
+        <p class="mt-3 text-slate-300">
+          Implement transport encryption, server-side validation, access controls, logging, and abuse mitigation for production handling.
+        </p>
+      </article>
+    </Container>
+  </section>
+</MainLayout>
+

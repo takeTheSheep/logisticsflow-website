@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title desc">
+  <title id="title">LogisticsFlow icon</title>
+  <desc id="desc">Stylized LF monogram in a rounded square.</desc>
+  <defs>
+    <linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#5ceefe" />
+      <stop offset="100%" stop-color="#16bfdc" />
+    </linearGradient>
+  </defs>
+  <rect x="4" y="4" width="56" height="56" rx="14" fill="#0a1424" stroke="#57ecff" stroke-opacity="0.45" />
+  <path d="M19 18h8v28H19zM27 38h18v8H27zM33 18h8v20h-8z" fill="url(#g)" />
+</svg>

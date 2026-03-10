@@ -1,0 +1,169 @@
+﻿---
+import Container from '@/components/common/Container.astro';
+import SectionHeading from '@/components/common/SectionHeading.astro';
+
+const simulatorStates = [
+  {
+    status: 'Label Created',
+    location: 'Hamburg Intake, DE',
+    timestamp: 'Mar 8, 06:10',
+    note: 'Manifest registered and shipment label generated.',
+  },
+  {
+    status: 'Picked Up',
+    location: 'Hamburg Dispatch, DE',
+    timestamp: 'Mar 8, 09:40',
+    note: 'Carrier confirmed pickup and lane assignment.',
+  },
+  {
+    status: 'In Transit',
+    location: 'Osnabruck Corridor, DE',
+    timestamp: 'Mar 9, 08:35',
+    note: 'Shipment is actively moving between checkpoints.',
+  },
+  {
+    status: 'Arrived at Hub',
+    location: 'Antwerp Hub, BE',
+    timestamp: 'Mar 9, 13:10',
+    note: 'Shipment reached distribution hub for reassignment.',
+  },
+  {
+    status: 'Out for Delivery',
+    location: 'Amsterdam Zone 2, NL',
+    timestamp: 'Mar 10, 07:35',
+    note: 'Last-mile vehicle assigned and route confirmed.',
+  },
+  {
+    status: 'Delivered',
+    location: 'Amsterdam, NL',
+    timestamp: 'Mar 10, 14:22',
+    note: 'Shipment delivered and proof-of-delivery recorded.',
+  },
+];
+
+const serializedStates = encodeURIComponent(JSON.stringify(simulatorStates));
+---
+
+<section class="section-spacing pt-4" id="shipment-status-simulator">
+  <SectionHeading
+    eyebrow="Shipment Status Simulator"
+    title="Interactive timeline state simulator"
+    description="Change shipment status and see timeline progression update in real time."
+  />
+
+  <Container class="mt-10">
+    <div class="section-shell p-6 md:p-8" data-status-simulator data-states={serializedStates} data-reveal>
+      <div class="grid gap-5 lg:grid-cols-[0.95fr_1.05fr]">
+        <article class="rounded-2xl border border-white/20 bg-white/15 p-4">
+          <label for="sim-status" class="text-sm font-semibold text-white">Select shipment status</label>
+          <select
+            id="sim-status"
+            class="mt-3 h-11 w-full rounded-xl border border-white/20 bg-white/20 px-3 text-sm font-medium text-white"
+            data-sim-select
+          >
+            {
+              simulatorStates.map((state, index) => (
+                <option value={index} selected={state.status === 'In Transit'}>
+                  {state.status}
+                </option>
+              ))
+            }
+          </select>
+
+          <div class="mt-4 rounded-xl border border-white/15 bg-white/10 p-3">
+            <p class="text-xs uppercase tracking-[0.1em] text-slate-300">Current state</p>
+            <p class="mt-2 text-sm font-semibold text-white" data-sim-status>In Transit</p>
+            <p class="mt-1 text-xs text-slate-200" data-sim-location>Osnabruck Corridor, DE</p>
+            <p class="mt-1 text-xs text-slate-200" data-sim-time>Mar 9, 08:35</p>
+            <p class="mt-3 text-xs text-slate-300" data-sim-note>
+              Shipment is actively moving between checkpoints.
+            </p>
+          </div>
+        </article>
+
+        <article class="rounded-2xl border border-white/20 bg-white/15 p-4">
+          <h3 class="text-sm font-semibold uppercase tracking-[0.1em] text-cyan-50">Timeline Preview</h3>
+          <ol class="mt-4 space-y-2" data-sim-timeline></ol>
+        </article>
+      </div>
+    </div>
+  </Container>
+</section>
+
+<script>
+  const simulatorRoot = document.querySelector<HTMLElement>('[data-status-simulator]');
+
+  if (simulatorRoot && simulatorRoot.dataset.bound !== 'true') {
+    simulatorRoot.dataset.bound = 'true';
+
+    type SimulatorState = {
+      status: string;
+      location: string;
+      timestamp: string;
+      note: string;
+    };
+
+    const encodedStates = simulatorRoot.dataset.states ?? '';
+    let states: SimulatorState[] = [];
+
+    try {
+      states = JSON.parse(decodeURIComponent(encodedStates)) as SimulatorState[];
+    } catch {
+      states = [];
+    }
+
+    const select = simulatorRoot.querySelector<HTMLSelectElement>('[data-sim-select]');
+    const timeline = simulatorRoot.querySelector<HTMLOListElement>('[data-sim-timeline]');
+    const status = simulatorRoot.querySelector<HTMLElement>('[data-sim-status]');
+    const location = simulatorRoot.querySelector<HTMLElement>('[data-sim-location]');
+    const time = simulatorRoot.querySelector<HTMLElement>('[data-sim-time]');
+    const note = simulatorRoot.querySelector<HTMLElement>('[data-sim-note]');
+
+    if (select && timeline && status && location && time && note && states.length > 0) {
+      const render = (activeIndex: number): void => {
+        const current = states[activeIndex];
+        status.textContent = current.status;
+        location.textContent = current.location;
+        time.textContent = current.timestamp;
+        note.textContent = current.note;
+
+        timeline.innerHTML = states
+          .map((item: SimulatorState, index: number) => {
+            const stateClass =
+              index < activeIndex
+                ? 'border-emerald-300/50 bg-emerald-300/15 text-emerald-50'
+                : index === activeIndex
+                  ? 'border-cyan-200/60 bg-cyan-200/20 text-cyan-50'
+                  : 'border-white/20 bg-white/10 text-slate-300';
+
+            const markerClass =
+              index < activeIndex
+                ? 'bg-emerald-200'
+                : index === activeIndex
+                  ? 'bg-cyan-100 animate-pulse'
+                  : 'bg-white/40';
+
+            return `
+              <li class="rounded-lg border px-3 py-2 text-xs ${stateClass}">
+                <div class="flex items-center justify-between gap-2">
+                  <span class="inline-flex items-center gap-2 font-semibold">
+                    <span class="inline-flex h-2 w-2 rounded-full ${markerClass}"></span>
+                    ${item.status}
+                  </span>
+                  <span>${item.timestamp}</span>
+                </div>
+              </li>
+            `;
+          })
+          .join('');
+      };
+
+      const initialIndex = Number(select.value || 2);
+      render(initialIndex);
+
+      select.addEventListener('change', () => {
+        render(Number(select.value));
+      });
+    }
+  }
+</script>

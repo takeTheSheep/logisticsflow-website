@@ -1,0 +1,121 @@
+---
+import Header from './Header.astro';
+import Footer from './Footer.astro';
+import '@/styles/global.css';
+import { createSeo } from '@/lib/utils/seo';
+
+interface Props {
+  title: string;
+  description: string;
+  pathname: string;
+  image?: string;
+  noIndex?: boolean;
+}
+
+const {
+  title,
+  description,
+  pathname,
+  image,
+  noIndex = false,
+} = Astro.props as Props;
+
+const seo = createSeo({ title, description, pathname, image });
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={seo.description} />
+    <link rel="canonical" href={seo.canonical} />
+    <meta name="robots" content={noIndex ? 'noindex, nofollow' : 'index, follow'} />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={seo.siteName} />
+    <meta property="og:title" content={seo.title} />
+    <meta property="og:description" content={seo.description} />
+    <meta property="og:url" content={seo.canonical} />
+    <meta property="og:image" content={seo.image} />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={seo.title} />
+    <meta name="twitter:description" content={seo.description} />
+    <meta name="twitter:image" content={seo.image} />
+
+    <meta name="theme-color" content="#2a4d78" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <title>{seo.title}</title>
+  </head>
+  <body>
+    <a
+      class="sr-only focus:not-sr-only focus:absolute focus:left-3 focus:top-3 focus:z-[60] focus:rounded-md focus:bg-cyan-300 focus:px-3 focus:py-2 focus:text-ink-950"
+      href="#main-content"
+    >
+      Skip to main content
+    </a>
+    <Header pathname={pathname} />
+    <main id="main-content" class="pt-20">
+      <slot />
+    </main>
+    <Footer />
+
+    <script>
+      const revealItems = document.querySelectorAll<HTMLElement>('[data-reveal]');
+
+      if (revealItems.length > 0) {
+        const revealObserver = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (!entry.isIntersecting) return;
+              entry.target.classList.add('is-visible');
+              revealObserver.unobserve(entry.target);
+            });
+          },
+          { threshold: 0.2, rootMargin: '0px 0px -10% 0px' }
+        );
+
+        revealItems.forEach((item) => revealObserver.observe(item));
+      }
+
+      const removeRipple = (node: HTMLElement): void => {
+        node.classList.add('ripple-out');
+        node.addEventListener(
+          'animationend',
+          () => {
+            node.remove();
+          },
+          { once: true }
+        );
+      };
+
+      document.addEventListener('click', (event) => {
+        const target = event.target as HTMLElement;
+        const trigger = target.closest<HTMLElement>('[data-ripple]');
+        if (!trigger) return;
+
+        const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (reducedMotion) return;
+
+        const rect = trigger.getBoundingClientRect();
+        const diameter = Math.max(rect.width, rect.height) * 1.2;
+        const ripple = document.createElement('span');
+        ripple.className = 'ripple-node';
+        ripple.style.width = `${diameter}px`;
+        ripple.style.height = `${diameter}px`;
+        ripple.style.left = `${event.clientX - rect.left - diameter / 2}px`;
+        ripple.style.top = `${event.clientY - rect.top - diameter / 2}px`;
+
+        const previous = trigger.querySelector<HTMLElement>('.ripple-node');
+        if (previous) {
+          previous.remove();
+        }
+
+        trigger.appendChild(ripple);
+        removeRipple(ripple);
+      });
+    </script>
+  </body>
+</html>

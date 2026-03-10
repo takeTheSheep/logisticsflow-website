@@ -1,0 +1,27 @@
+﻿---
+import Container from '@/components/common/Container.astro';
+import SectionHeading from '@/components/common/SectionHeading.astro';
+import { industries } from '@/data/industries';
+---
+
+<section class="section-spacing pt-6">
+  <SectionHeading
+    eyebrow="Featured Industries"
+    title="Built for complex shipment ecosystems"
+    description="From high-volume retail to regulated supply lanes, LogisticsFlow adapts to your operational context."
+  />
+  <Container class="mt-10">
+    <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+      {
+        industries.map((industry) => (
+          <article class="rounded-2xl border border-white/10 bg-white/10 px-4 py-4 transition-all duration-300 hover:border-cyan-300/45 hover:bg-white/20">
+            <h3 class="text-base font-semibold text-white">{industry.title}</h3>
+            <p class="mt-2 text-sm text-slate-300">{industry.detail}</p>
+          </article>
+        ))
+      }
+    </div>
+  </Container>
+</section>
+
+
