@@ -1,5 +1,14 @@
-﻿---
+---
 import Button from '@/components/common/Button.astro';
+import { services } from '@/data/services';
+import ServiceSelect from './ServiceSelect.astro';
+
+const serviceOptions = services.map((service) => ({
+  value: service.title,
+  label: service.title,
+  description: service.summary,
+  signal: service.signal,
+}));
 ---
 
 <section class="rounded-3xl border border-white/10 bg-white/10 p-6 md:p-8" aria-labelledby="contact-form-heading">
@@ -35,19 +44,10 @@ import Button from '@/components/common/Button.astro';
       </div>
     </div>
 
-    <div>
-      <label for="serviceNeeded" class="mb-2 block text-sm font-medium text-slate-100">Service Needed</label>
-      <select id="serviceNeeded" name="serviceNeeded" class="h-11 w-full rounded-xl border border-white/15 bg-white/10 px-4 text-sm text-white" required>
-        <option value="">Select a service</option>
-        <option value="Freight Coordination">Freight Coordination</option>
-        <option value="Warehousing & Fulfillment">Warehousing & Fulfillment</option>
-        <option value="Supply Chain Visibility">Supply Chain Visibility</option>
-        <option value="Route Planning">Route Planning</option>
-        <option value="Cross-Border Support">Cross-Border Support</option>
-        <option value="Dedicated Account Communication">Dedicated Account Communication</option>
-      </select>
-      <p data-error-for="serviceNeeded" class="mt-1 text-xs text-rose-300" hidden></p>
-    </div>
+    <ServiceSelect
+      options={serviceOptions}
+      helperText="Pick the service area and the form will align the request around that workflow."
+    />
 
     <div>
       <label for="message" class="mb-2 block text-sm font-medium text-slate-100">Message</label>
@@ -103,7 +103,7 @@ import Button from '@/components/common/Button.astro';
         el.setAttribute('hidden', 'true');
       });
 
-      form.querySelectorAll('input, select, textarea').forEach((field) => {
+      form.querySelectorAll('input, select, textarea, [data-field-proxy]').forEach((field) => {
         if (field instanceof HTMLElement) {
           field.removeAttribute('aria-invalid');
         }
@@ -112,7 +112,8 @@ import Button from '@/components/common/Button.astro';
 
     const showFieldError = (fieldName: string, message: string): void => {
       const target = form.querySelector<HTMLParagraphElement>(`[data-error-for="${fieldName}"]`);
-      const field = form.elements.namedItem(fieldName);
+      const proxyField = form.querySelector<HTMLElement>(`[data-field-proxy="${fieldName}"]`);
+      const field = proxyField ?? form.elements.namedItem(fieldName);
 
       if (target) {
         target.textContent = message;
@@ -202,5 +203,3 @@ import Button from '@/components/common/Button.astro';
     });
   }
 </script>
-
-
