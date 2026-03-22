@@ -190,10 +190,95 @@
   animation: statusPulse 3.2s ease-in-out infinite;
 }
 
+/* Hero gradient text */
+.hero-gradient-text {
+  background: linear-gradient(135deg, hsl(193, 100%, 73%), hsl(160, 60%, 65%), hsl(193, 100%, 83%));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  background-size: 200% 200%;
+  animation: gradientShift 4s ease-in-out infinite;
+}
+
+@keyframes gradientShift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+/* Floating particles */
+.floating-particle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: hsla(193, 100%, 73%, 0.3);
+  animation: floatParticle 8s ease-in-out infinite;
+}
+
+@keyframes floatParticle {
+  0%, 100% { transform: translateY(0) translateX(0); opacity: 0.2; }
+  25% { opacity: 0.6; }
+  50% { transform: translateY(-40px) translateX(20px); opacity: 0.4; }
+  75% { opacity: 0.5; }
+}
+
+/* Metric card hover */
+.metric-card {
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.5s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.5s;
+}
+.metric-card:hover {
+  transform: translateY(-4px);
+  border-color: hsla(193, 100%, 73%, 0.3);
+  box-shadow: 0 16px 40px -16px hsla(193, 85%, 60%, 0.25);
+}
+
+/* Service card */
+.service-card {
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.service-card:hover {
+  border-color: hsla(193, 100%, 73%, 0.3);
+  transform: translateY(-2px);
+  box-shadow: 0 20px 50px -20px hsla(193, 85%, 60%, 0.2);
+}
+
+/* Slide line animation for route cards */
+@keyframes slideLine {
+  0% { transform: translateX(-100%); }
+  50% { transform: translateX(100%); }
+  100% { transform: translateX(-100%); }
+}
+
+/* CTA shimmer */
+.cta-section {
+  position: relative;
+  overflow: hidden;
+}
+.cta-section::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle at center, hsla(193, 100%, 73%, 0.06) 0%, transparent 60%);
+  animation: ctaPulse 6s ease-in-out infinite;
+  pointer-events: none;
+}
+@keyframes ctaPulse {
+  0%, 100% { transform: scale(1); opacity: 0.5; }
+  50% { transform: scale(1.15); opacity: 1; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .reveal, .reveal-left {
     opacity: 1 !important;
     transform: none !important;
     transition: none !important;
+  }
+  .floating-particle,
+  .hero-gradient-text,
+  .cta-section::before {
+    animation: none !important;
   }
 }
