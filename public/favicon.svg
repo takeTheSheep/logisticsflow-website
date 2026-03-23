@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="LogisticsFlow icon">
+  <defs>
+    <linearGradient id="bg" x1="8" y1="8" x2="56" y2="56" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#0f2b43" />
+      <stop offset="1" stop-color="#1f4966" />
+    </linearGradient>
+    <linearGradient id="accent" x1="18" y1="18" x2="48" y2="48" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#b7f7ff" />
+      <stop offset="1" stop-color="#7ee8ef" />
+    </linearGradient>
+  </defs>
+  <rect x="6" y="6" width="52" height="52" rx="16" fill="url(#bg)" />
+  <path d="M20 21h15a6 6 0 0 1 0 12H24v10h20" fill="none" stroke="url(#accent)" stroke-linecap="round" stroke-linejoin="round" stroke-width="5" />
+  <path d="M38 38h8m0 0-3-3m3 3-3 3" fill="none" stroke="url(#accent)" stroke-linecap="round" stroke-linejoin="round" stroke-width="4" />
+</svg>
